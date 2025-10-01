@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --purple-heart-50: 249 78% 96%;
+  --purple-heart-100: 250 78% 91%;
+  --purple-heart-200: 250 79% 83%;
+  --purple-heart-300: 251 77% 76%;
+  --purple-heart-400: 253 77% 69%;
+  --purple-heart-500: 255 76% 61%;
+  --purple-heart-600: 257 75% 55%;
+  --purple-heart-700: 258 66% 44%;
+  --purple-heart-800: 258 69% 32%;
+  --purple-heart-900: 258 77% 19%;
+  --purple-heart-950: 258 84% 12%;
+}
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+    --color-primary-50: var(--purple-heart-50);
+    --color-primary-100: var(--purple-heart-100);
+    --color-primary-200: var(--purple-heart-200);
+    --color-primary-300: var(--purple-heart-300);
+    --color-primary-400: var(--purple-heart-400);
+    --color-primary-500: var(--purple-heart-500);
+    --color-primary-600: var(--purple-heart-600);
+    --color-primary-700: var(--purple-heart-700);
+    --color-primary-800: var(--purple-heart-800);
+    --color-primary-900: var(--purple-heart-900);
+    --color-primary-950: var(--purple-heart-950);
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-[hsl(var(--purple-heart-600))] text-white hover:bg-[hsl(var(--purple-heart-700))] focus:ring-[hsl(var(--purple-heart-500))];
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+  }
+
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--purple-heart-500))] focus:border-[hsl(var(--purple-heart-500))];
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200;
+  }
+}
