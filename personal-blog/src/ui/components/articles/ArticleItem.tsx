@@ -8,7 +8,7 @@ type ArticleItemProps = {
 
 export function ArticleItem({ article }: ArticleItemProps) {
   return (
-    <li className="group">
+    <div className="group">
       <Link
         to={`/article/${article.id}`}
         state={{ article }}
@@ -23,6 +23,6 @@ export function ArticleItem({ article }: ArticleItemProps) {
           })}
         </span>
       </Link>
-    </li>
+    </div>
   );
 }

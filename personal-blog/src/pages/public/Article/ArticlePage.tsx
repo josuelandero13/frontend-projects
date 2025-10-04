@@ -1,14 +1,14 @@
-import { ArticlesList } from "@/ui/components/articles/ArticleList";
-import { useArticle } from "@/ui/hooks/useArticle";
+import { ArticlesList } from '@/ui/components/articles/ArticleList';
+import { useArticles } from '@/application/hooks/useArticles';
 
 export default function ArticlePage() {
-  const { articles, loading, error } = useArticle();
+  const { data, isLoading, error } = useArticles(true);
 
   return (
     <ArticlesList
-      articles={articles}
-      loading={loading}
-      error={error}
+      articles={data || []}
+      loading={isLoading}
+      error={error ? error.message : null}
     />
   );
 }
