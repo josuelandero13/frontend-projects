@@ -10,7 +10,7 @@ export const authService = {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await apiClient.post('/auth/login', credentials);
 
-    return response.data;
+    return response.data.data;
   },
 
   async register(
@@ -29,13 +29,17 @@ export const authService = {
     return response.data;
   },
 
-  async getProfile(): Promise<{
-    userId: string;
-    username: string;
-    role: string;
-  }> {
-    const response = await apiClient.get('/auth/profile');
+  async getProfile(): Promise<User> {
+    const response = await apiClient.get('/auth/me');
+    const data = response.data;
 
-    return response.data;
+    return {
+      id: data.userId,
+      username: data.username,
+      email: data.email || '',
+      role: data.role as 'admin' | 'author' | 'guest',
+      createdAt: data.createdAt || new Date().toISOString(),
+      updatedAt: data.updatedAt || new Date().toISOString(),
+    };
   },
 };

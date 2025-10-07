@@ -1,16 +1,17 @@
-import { LoginRequest, RegisterRequest } from '@/core/entities/user';
-import { authStorage } from '@/infrastructure/auth/authStorage';
 import { create } from 'zustand';
 import { authService } from '../services/authService';
+import { authStorage } from '@/infrastructure/auth/authStorage';
+import { LoginRequest, RegisterRequest, User } from '@/core/entities/user';
 
 interface AuthState {
-  user: { userId: string; username: string; role: string } | null;
+  user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (credentials: LoginRequest) => Promise<void>;
   register: (userData: RegisterRequest) => Promise<void>;
   logout: () => void;
   checkAuth: () => Promise<void>;
+  initialize: () => void;
 }
 
 export const useAuth = create<AuthState>((set, get) => ({
@@ -20,16 +21,12 @@ export const useAuth = create<AuthState>((set, get) => ({
 
   login: async (credentials: LoginRequest) => {
     try {
-      const { accessToken, refreshToken, user } = await authService.login(credentials);
-
-      authStorage.setToken(accessToken);
-      authStorage.setRefreshToken(refreshToken);
+      const response = await authService.login(credentials);
+      authStorage.setToken(response.accessToken);
+      authStorage.setRefreshToken(response.refreshToken);
+      authStorage.setUser(response.user);
       set({
-        user: {
-          userId: user.id,
-          username: user.username,
-          role: user.role
-        },
+        user: response.user,
         isAuthenticated: true,
       });
     } catch (error) {
@@ -58,12 +55,14 @@ export const useAuth = create<AuthState>((set, get) => ({
   checkAuth: async () => {
     try {
       const token = authStorage.getToken();
+
       if (!token) {
         set({ isLoading: false });
         return;
       }
 
       const user = await authService.getProfile();
+
       set({
         user,
         isAuthenticated: true,
@@ -76,6 +75,24 @@ export const useAuth = create<AuthState>((set, get) => ({
         isAuthenticated: false,
         isLoading: false,
       });
+    }
+  },
+
+  initialize: () => {
+    const token = authStorage.getToken();
+    const user = authStorage.getUser();
+
+    if (token && user) {
+      set({
+        user: {
+          ...user,
+          id: user.id,
+        },
+        isAuthenticated: true,
+        isLoading: false,
+      });
+    } else {
+      set({ isLoading: false });
     }
   },
 }));

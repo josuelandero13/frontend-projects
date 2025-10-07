@@ -1,23 +1,17 @@
 import { ReactNode } from 'react';
 import { Footer } from './Footer';
-import { Header } from './Header';
+import { HeaderPublicLayout } from './HeaderPublicLayout';
 
 interface PublicLayoutProps {
   children: ReactNode;
 }
 
 export default function PublicLayout({ children }: PublicLayoutProps) {
-  
-
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
+    <div className="min-h-screen bg-gray-50">
+      <HeaderPublicLayout />
 
-      <main className="flex-grow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          {children}
-        </div>
-      </main>
+      <main className="py-20">{children}</main>
 
       <Footer />
     </div>
