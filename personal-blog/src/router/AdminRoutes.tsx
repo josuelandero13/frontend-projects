@@ -4,6 +4,7 @@ import { Dashboard } from '@/pages/admin/Dashboard/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
 import AdminLayout from '@/layouts/AdminLayout/AdminLayout';
 import { Outlet } from 'react-router-dom';
+import { ArticleEditor } from '@/pages/admin/ArticleEditor/ArticleEditor';
 
 function AdminLayoutWrapper() {
   return (
@@ -23,6 +24,8 @@ export default function AdminRoutes() {
       <Route path="/" element={<AdminLayoutWrapper />}>
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="articles/edit/:id" element={<ArticleEditor />} />
+        <Route path="articles/new" element={<ArticleEditor />} />
         <Route path="*" element={<Navigate to="dashboard" replace />} />
       </Route>
     </Routes>

@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
 import { useAuth } from '@/application/hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 export function HeaderPublicLayout() {
   const { isAuthenticated, logout } = useAuth();
-  console.log('isAuthenticated', isAuthenticated);
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-10">

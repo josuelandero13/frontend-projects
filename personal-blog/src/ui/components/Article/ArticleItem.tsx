@@ -1,6 +1,6 @@
-import { Article } from "@/core/entities/article";
-import { Link } from "react-router-dom";
-import { ArticleIcon } from "@/ui/icons/ArticleIcon";
+import { Article } from '@/core/entities/article';
+import { Link } from 'react-router-dom';
+import { ArticleIcon } from '@/ui/icons/ArticleIcon';
 
 type ArticleItemProps = {
   article: Article;
@@ -17,9 +17,9 @@ export function ArticleItem({ article }: ArticleItemProps) {
         <ArticleIcon />
         <span className="truncate">{article.title}</span>
         <span className="ml-auto text-xs text-gray-400">
-          {new Date(article.createdAt).toLocaleDateString("es-ES", {
-            day: "numeric",
-            month: "short",
+          {new Date(article.createdAt).toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'short',
           })}
         </span>
       </Link>

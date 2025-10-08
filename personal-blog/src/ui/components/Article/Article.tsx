@@ -1,7 +1,11 @@
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { Article as ArticleType } from '@/core/entities/article';
+import { articleService } from '@/application/services/articleService';
 
 enum Message {
   NOT_FOUND = 'Artículo no encontrado',
+  LOADING = 'Cargando artículo...',
 }
 
 enum PublishState {
@@ -11,12 +15,45 @@ enum PublishState {
 
 export function Article() {
   const location = useLocation();
-  const { article } = location.state;
+  const { id } = useParams<{ id: string }>();
+  const [article, setArticle] = useState<ArticleType | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!article) {
+  useEffect(() => {
+    if (location.state?.article) {
+      setArticle(location.state.article);
+    } else if (id) {
+      const fetchArticle = async () => {
+        setIsLoading(true);
+        try {
+          const data = await articleService.getArticleById(id);
+          setArticle(data);
+        } catch (err) {
+          console.error('Error fetching article:', err);
+          setError(Message.NOT_FOUND);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchArticle();
+    } else {
+      setError(Message.NOT_FOUND);
+    }
+  }, [id, location.state]);
+
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600">{Message.NOT_FOUND}</p>
+        <p className="text-gray-600">{Message.LOADING}</p>
+      </div>
+    );
+  }
+
+  if (error || !article) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600">{error || Message.NOT_FOUND}</p>
       </div>
     );
   }

@@ -11,7 +11,7 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
     <div className="min-h-screen bg-gray-50">
       <HeaderPublicLayout />
 
-      <main className="py-20">{children}</main>
+      <main className="animate-fade-in py-32">{children}</main>
 
       <Footer />
     </div>

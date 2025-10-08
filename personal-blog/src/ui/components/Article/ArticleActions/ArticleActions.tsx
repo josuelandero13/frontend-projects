@@ -21,6 +21,12 @@ export function ArticleActions({
       >
         Editar
       </Link>
+      <Link
+        to={`/article/${articleId}`}
+        className="text-primary-600 hover:text-primary-900 text-sm font-medium"
+      >
+        Ver
+      </Link>
       <button
         onClick={() => onDelete(articleId, articleTitle)}
         className="text-red-600 hover:text-red-900 text-sm font-medium"

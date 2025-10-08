@@ -1,6 +1,6 @@
-import { Routes, Route } from 'react-router-dom'
-import PublicRoutes from './PublicRoutes'
-import AdminRoutes from './AdminRoutes'
+import { Routes, Route } from 'react-router-dom';
+import PublicRoutes from './PublicRoutes';
+import AdminRoutes from './AdminRoutes';
 
 function AppRouter() {
   return (
@@ -8,7 +8,7 @@ function AppRouter() {
       <Route path="/*" element={<PublicRoutes />} />
       <Route path="/admin/*" element={<AdminRoutes />} />
     </Routes>
-  )
+  );
 }
 
-export default AppRouter
+export default AppRouter;

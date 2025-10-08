@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export function NotFound() {
   return (
@@ -10,12 +10,9 @@ export function NotFound() {
       <p className="text-gray-600 mb-8 max-w-md mx-auto">
         Lo sentimos, la página que estás buscando no existe o ha sido movida.
       </p>
-      <Link 
-        to="/" 
-        className="btn btn-primary"
-      >
+      <Link to="/" className="btn btn-primary">
         Volver al Inicio
       </Link>
     </div>
-  )
+  );
 }
